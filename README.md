@@ -168,4 +168,4 @@ Jalankan proyek Django dengan perintah python manage.py runserver.
 ![XML](image-1.png)
 ![JSON by id](image-2.png) 
 ![XML by id](image-3.png)
-![HTML](image-4.png)
+![HTML](image-5.png)
