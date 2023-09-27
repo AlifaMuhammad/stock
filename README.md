@@ -187,23 +187,23 @@ Penggunaan cookies secara default dalam pengembangan web relatif aman, namun ter
 
 
 - Buka views.py pada subdirektori main dan tambahkan impor berikut:
-from django.shortcuts import redirect
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages
+
+    from django.shortcuts import redirect
+    from django.contrib.auth.forms import UserCreationForm
+    from django.contrib import messages
 
 - Buat fungsi register yang menerima parameter request dan tambahkan potongan kode berikut:
 
-def register(request):
-    form = UserCreationForm()
-
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Your account has been successfully created!')
-            return redirect('main:login')
-    context = {'form': form}
-    return render(request, 'register.html', context)
+    def register(request):
+        form = UserCreationForm()
+        if request.method == "POST":
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Your account has been successfully created!')
+                return redirect('main:login')
+        context = {'form': form}
+        return render(request, 'register.html', context)
 
 
 - Buat berkas HTML baru dengan nama register.html
@@ -213,22 +213,24 @@ def register(request):
 Membuat Fungsi Login
 
 - Buka views.py dan tambahkan impor berikut:
-from django.contrib.auth import authenticate, login
+
+    from django.contrib.auth import authenticate, login
 
 
 - Buat fungsi login_user yang menerima parameter request dan tambahkan potongan kode berikut:
-def login_user(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('main:show_main')
-        else:
-            messages.info(request, 'Sorry, incorrect username or password. Please try again.')
-    context = {}
-    return render(request, 'login.html', context)
+
+    def login_user(request):
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('main:show_main')
+            else:
+                messages.info(request, 'Sorry, incorrect username or password. Please try again.')
+        context = {}
+        return render(request, 'login.html', context)
 
 - Buat berkas HTML baru dengan nama login.html
 
@@ -237,28 +239,32 @@ def login_user(request):
 Membuat Fungsi Logout
 
 - Buka views.py dan tambahkan impor berikut:
-from django.contrib.auth import logout
+
+    from django.contrib.auth import logout
 
 - Buat fungsi logout_user yang menerima parameter request dan tambahkan potongan kode berikut:
-def logout_user(request):
-    logout(request)
-    return redirect('main:login')
+
+    def logout_user(request):
+        logout(request)
+        return redirect('main:login')
 
 - Impor fungsi logout_user di urls.py dan tambahkan path URL untuk mengaksesnya.
 
 Merestriksi Akses Halaman Main
 
 - Buka views.py dan tambahkan impor berikut:
-from django.contrib.auth.decorators import login_required
+
+    from django.contrib.auth.decorators import login_required
 
 - Tambahkan decorator @login_required(login_url='/login') di atas fungsi show_main untuk merestriksi akses ke halaman utama.
 
 Menggunakan Data Dari Cookies
 
 - Buka views.py dan tambahkan impor berikut:
-import datetime
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+
+    import datetime
+    from django.http import HttpResponseRedirect
+    from django.urls import reverse
 
 - Modifikasi fungsi login_user untuk menambahkan cookie last_login saat pengguna login.
 
@@ -271,7 +277,8 @@ from django.urls import reverse
 Menghubungkan Model Product dengan User
 
 - Buka models.py dan tambahkan impor berikut:
-from django.contrib.auth.models import User
+
+    from django.contrib.auth.models import User
 
 - Tambahkan field user dengan tipe ForeignKey pada model Product untuk menghubungkan setiap produk dengan pengguna yang membuatnya.
 
