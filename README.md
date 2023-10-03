@@ -289,3 +289,58 @@ Menghubungkan Model Product dengan User
 - Lakukan migrasi model dengan python manage.py makemigrations dan python manage.py migrate untuk mengaplikasikan perubahan model.
 
 - Jalankan proyek Django dengan python manage.py runserver dan coba membuat akun baru, login, dan amati bahwa produk hanya ditampilkan sesuai dengan pengguna yang membuatnya.
+
+
+
+Tugas 5
+1. Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
+
+    Manfaat dari Setiap Element Selector dan Waktu yang Tepat untuk Menggunakannya:
+
+    *Element Selector (element): Selector ini memilih semua elemen dengan tag yang sama. Contoh penggunaan yang tepat adalah ketika Anda ingin menerapkan gaya seragam ke semua elemen dengan tag tertentu.
+
+    *Class Selector (.class): Selector ini memilih elemen berdasarkan nama kelas yang Anda tentukan. Ini berguna saat Anda ingin memberikan gaya yang sama kepada beberapa elemen yang berbeda tag, tetapi memiliki kelas yang sama.
+
+    *ID Selector (#id): Selector ini memilih elemen dengan ID tertentu. Biasanya digunakan untuk menerapkan gaya atau logika khusus pada elemen tunggal.
+    Universal Selector (*): Selector ini memilih semua elemen pada halaman. Namun, sebaiknya digunakan dengan hati-hati karena dapat mempengaruhi semua elemen.
+
+2. Jelaskan HTML5 Tag yang kamu ketahui.
+
+   Beberapa tag HTML5 :
+
+   ```
+    <header>    : Untuk bagian header halaman.
+    <nav>       : Untuk menu navigasi.
+    <article>   : Untuk konten artikel.
+    <section>   : Untuk bagian atau sub-bagian dalam dokumen.
+    <footer>    : Untuk bagian footer halaman.
+    <video>     : Untuk menampilkan video.
+    <audio>     : Untuk menampilkan audio.
+    <canvas>    : Untuk menggambar grafis interaktif.
+    ```
+
+3. Jelaskan perbedaan antara margin dan padding.
+
+    *Margin: Margin adalah ruang di sekitar elemen HTML yang berfungsi untuk memberikan jarak antara elemen ini dengan elemen-elemen lain di sekitarnya. Margin tidak memiliki latar belakang atau warna dan tidak akan memengaruhi tampilan elemen itu sendiri.
+
+    *Padding: Padding adalah ruang di dalam elemen HTML, di antara konten elemen dan batas elemen tersebut. Padding memengaruhi tampilan elemen dan memberikan jarak antara konten elemen dan batasnya.
+
+4. Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+
+    *Tailwind CSS: Tailwind adalah framework CSS yang mempromosikan penggunaan kelas utility yang sangat deskriptif untuk mengatur tampilan. Ini memberikan kontrol yang tinggi tetapi memerlukan penulisan lebih banyak kode CSS langsung. Tailwind Lebih cocok ketika kita ingin memiliki kendali yang lebih besar atas tampilan dan ingin menghindari gaya desain bawaan. 
+
+    *Bootstrap: Bootstrap adalah framework CSS yang menyediakan komponen siap pakai dan gaya desain yang konsisten. Ini memudahkan dalam pengembangan web yang cepat tetapi mungkin kurang fleksibel dibandingkan dengan Tailwind. Bootstrap Lebih cocok jika ketika kita ingin membangun proyek dengan cepat dan menginginkan komponen-komponen siap pakai yang telah dirancang dengan baik.
+
+
+5.  Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+
+    *Atur warna latar belakang dengan menggunakan properti CSS background-color.
+
+    *Sesuaikan margin, padding, dan jarak antara elemen-elemen form dengan menggunakan properti CSS seperti margin dan padding.
+
+    *Ganti jenis font atau ukuran teks dengan menggunakan properti CSS font-family dan font-size.
+
+    *Ubah gaya tombol dengan menggunakan properti CSS seperti background-color, color, dan border.
+
+    *Format elemen-elemen input form dengan menggunakan properti CSS seperti border, border-radius, dan box-shadow.
