@@ -344,3 +344,135 @@ Tugas 5
     *Ubah gaya tombol dengan menggunakan properti CSS seperti background-color, color, dan border.
 
     *Format elemen-elemen input form dengan menggunakan properti CSS seperti border, border-radius, dan box-shadow.
+
+
+Tugas 6
+
+1. Asynchronous programming adalah paradigma pemrograman di mana eksekusi suatu program tidak diblokir saat menunggu operasi yang berjalan lama selesai. Sebaliknya, program terus dijalankan, dan hasil operasi ditangani nanti ketika sudah tersedia. Sebaliknya, synchronous programming adalah paradigma pemrograman di mana eksekusi program diblokir sambil menunggu operasi yang berjalan lama selesai.
+
+2. Paradigma event-driven programming adalah paradigma pemrograman yang berfokus pada kejadian atau event yang terjadi pada program. Pada paradigma ini, program akan menunggu kejadian terjadi dan menangani kejadian tersebut ketika terjadi. Contoh penerapannya pada tugas ini adalah ketika pengguna melakukan klik pada tombol "add" pada halaman web, maka program akan menangani kejadian tersebut dan mengirimkan data ke server menggunakan AJAX.
+
+3. Penerapan asynchronous programming pada AJAX memungkinkan program untuk melakukan request ke server tanpa harus menunggu respon dari server. Dalam hal ini, program akan melanjutkan eksekusi kode setelah melakukan request, dan akan menangani respon dari server ketika respon tersebut diterima.
+
+4. Fetch API dan jQuery adalah dua teknologi yang dapat digunakan untuk melakukan AJAX request pada JavaScript. Fetch API adalah teknologi bawaan JavaScript yang lebih modern dan fleksibel dibandingkan dengan jQuery. Fetch API menggunakan promise-based API, sehingga lebih mudah digunakan dan lebih mudah dipahami Selain itu, Fetch API juga mendukung fitur-fitur seperti caching data dan membaca streaming response Meskipun demikian, jQuery masih digunakan oleh beberapa developer karena kelebihannya dalam mendukung browser yang lebih lama Namun, secara keseluruhan, Fetch API lebih disarankan untuk digunakan karena lebih modern dan fleksibel.
+
+5. 
+- Buat Fungsi add_product_ajax di views.py:
+Buka berkas views.py dan tambahkan fungsi add_product_ajax.
+Impor csrf_exempt decorator dari django.views.decorators.csrf.
+Dekorasikan fungsi dengan @csrf_exempt.
+```python
+    from django.views.decorators.csrf import csrf_exempt
+
+    @csrf_exempt
+    def add_product_ajax(request):
+        if request.method == 'POST':
+            name = request.POST.get("name")
+            price = request.POST.get("price")
+            description = request.POST.get("description")
+            user = request.user
+
+            new_product = Product(name=name, price=price, description=description, user=user)
+            new_product.save()
+
+            return HttpResponse(b"CREATED", status=201)
+
+        return HttpResponseNotFound()
+
+ ```
+    
+- Membuat Routing:
+Buka berkas urls.py dalam folder main.
+Impor fungsi get_product_json dan add_product_ajax.
+Tambahkan path untuk kedua fungsi ke dalam urlpatterns.
+```python
+    from .views import get_product_json, add_product_ajax
+
+    urlpatterns = [
+    path('get-product/', get_product_json, name='get_product_json'),
+    path('create-product-ajax/', add_product_ajax, name='add_product_ajax'),
+    ]
+```
+
+- Memperbarui Template HTML:
+Buka berkas main.html dalam folder templates.
+Hapus kode tabel yang sudah ada dan tambahkan sebuah tabel kosong dengan ID product_table.
+```html
+
+    <table id="product_table"></table>
+```
+
+- Buat Fungsi JavaScript untuk Mengambil Data Produk:
+Tambahkan blok script di bagian bawah berkas HTML.
+Buat fungsi JavaScript getProducts untuk mengambil data produk secara asynchronous menggunakan fetch() API.
+```html
+    <script>
+    async function getProducts() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    }
+    </script>
+```
+
+- Buat Fungsi JavaScript untuk Memperbarui Data Produk:
+Dalam blok script yang sama, buat fungsi refreshProducts untuk mengisi tabel dengan data produk yang diambil dari server.
+Panggil refreshProducts() untuk mengisi tabel saat halaman dimuat.
+```html
+    <script>
+    ...
+    async function refreshProducts() {
+        document.getElementById("product_table").innerHTML = ""
+        const products = await getProducts()
+        let htmlString = `<tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Date Added</th>
+        </tr>`
+        products.forEach((item) => {
+            htmlString += `\n<tr>
+            <td>${item.fields.name}</td>
+            <td>${item.fields.price}</td>
+            <td>${item.fields.description}</td>
+            <td>${item.fields.date_added}</td>
+        </tr>`
+        })
+
+        document.getElementById("product_table").innerHTML = htmlString
+    }
+
+    refreshProducts()
+    </script>
+```
+
+- Membuat Modal untuk Menambahkan Produk:
+Tambahkan kode HTML untuk modal dengan form di dalamnya. Sesuaikan form dengan model produk yang digunakan dalam aplikasi Anda.
+Tambahkan tombol yang akan menampilkan modal.
+```html
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
+```
+
+- Buat Fungsi JavaScript untuk Menambahkan Data Produk dengan AJAX:
+Dalam blok script, buat fungsi addProduct yang akan mengirim data produk baru ke server menggunakan fetch() API.
+Atur tombol "Add Product" di dalam modal untuk menjalankan fungsi addProduct saat diklik.
+```html
+    <script>
+    ...
+    function addProduct() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+
+        document.getElementById("form").reset()
+        return false
+    }
+
+    document.getElementById("button_add").onclick = addProduct
+    </script>
+```
+
+
+    
+
